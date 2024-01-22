@@ -28,6 +28,23 @@ function App() {
     return TodoTextLC.includes(searchTextLC);
   })
 
+  const completeTodo = (text) =>{
+    const newListTask = [...listTasks];
+    const taskIndex = newListTask.findIndex(
+      (task) => task.taskName === text
+    )
+    newListTask[taskIndex].complete = true;
+    setListTasks(newListTask);
+  }
+  
+  const deleteTodo = (text) =>{
+    const newListTask = [...listTasks];
+    const taskIndex = newListTask.findIndex(
+      (task) => task.taskName === text
+    )
+    newListTask.splice(taskIndex,1)
+    setListTasks(newListTask)
+  }
 
   return (
     <div className='todo_machine'>      
@@ -35,7 +52,7 @@ function App() {
       <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
       <ListTasks>
         {
-          searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete}/>))
+          searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete} onComplete={() => completeTodo(item.taskName)} onDelete={() => deleteTodo(item.taskName)}/>))
         }
       </ListTasks>
       <NewItem />
