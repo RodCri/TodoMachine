@@ -1,0 +1,10 @@
+.counter {
+  font-size: 2rem;
+  font-family: "Courier New", Courier, monospace;
+  font-style: italic;
+  color: beige;
+  .counter__number {
+    font-weight: 700;
+    color: rgb(81, 72, 72);
+  }
+}

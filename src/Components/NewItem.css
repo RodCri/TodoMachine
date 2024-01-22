@@ -1,0 +1,25 @@
+.add__Task {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 2rem;
+  background-color: rgb(10, 139, 38);
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: row-reverse;
+  &:hover {
+    width: 200px;
+    border-radius: 1rem;
+  }
+  &:hover::before {
+    content: "Add new Task";
+    transition: all 0.2s ease;
+    font-size: 1rem;
+  }
+}
