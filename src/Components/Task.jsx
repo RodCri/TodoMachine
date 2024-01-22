@@ -8,7 +8,8 @@ export const Task = ({name, completed}) => {
   return (
     <li className='item__task'>
       <span className={classCompleted}></span>  
-      <p className={completed && 'item__dashed'}>{name}</p>
+      {/* <p className={completed && 'item__dashed'}>{name}</p> */}
+      <p className={completed ? 'item__dashed' : ''}>{name}</p>
       <span className='item__delete'>x</span>  
     </li>
   )
