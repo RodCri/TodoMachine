@@ -14,15 +14,28 @@ function App() {
 
   const completedTodos = listTasks.filter(task => task.complete).length;
   const totalTodos = listTasks.length;
+  const searchedTodos = listTasks.filter((task)=>{
+    // función texto sin tildes
+    const noTildes = (text) => {
+      return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    };
 
-  console.log(searchValue)
+    // Normalizando texto sin tildes y a Lower Case
+    const TodoTextLC = noTildes(task.taskName.toLowerCase());
+    const searchTextLC = noTildes(searchValue.toLowerCase());
+
+    //renderizar con filtro
+    return TodoTextLC.includes(searchTextLC);
+  })
+
+
   return (
     <div className='todo_machine'>      
       <Counter completed={completedTodos} total={totalTodos}/>
       <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
       <ListTasks>
         {
-          listTasks.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete}/>))
+          searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete}/>))
         }
       </ListTasks>
       <NewItem />
