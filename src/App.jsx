@@ -1,19 +1,48 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { Counter } from './Components/Counter'
 import { Filter } from './Components/Filter'
 import { Task } from './Components/Task'
 import { ListTasks } from './Components/ListTasks'
 import { NewItem } from './Components/NewItem'
-import { taskList } from "./data/Tasks"
 
 function App() {
+
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+  
+  if (!localStorageTodos) {
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
   // eslint-disable-next-line no-unused-vars
-  const [listTasks, setListTasks] = useState(taskList);
+  const [listTasks, setListTasks] = useState(parsedTodos);
   const [searchValue, setSearchValue] = useState("");
 
   const completedTodos = listTasks.filter(task => task.complete).length;
   const totalTodos = listTasks.length;
+
+  useEffect(() => {
+    if (localStorage.getItem("TODOS_V1")) {
+      if (JSON.parse(localStorage.getItem("TODOS_V1")).length > 0) {
+        setListTasks(JSON.parse(localStorage.getItem("TODOS_V1")));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const savedData = [...listTasks];
+    localStorage.setItem("TODOS_V1", JSON.stringify(savedData));
+  }, [listTasks]);
+
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+    setListTasks(newTodos);
+  };
+
   const searchedTodos = listTasks.filter((task)=>{
     // función texto sin tildes
     const noTildes = (text) => {
@@ -34,7 +63,7 @@ function App() {
       (task) => task.taskName === text
     )
     newListTask[taskIndex].complete = true;
-    setListTasks(newListTask);
+    saveTodos(newListTask);
   }
   
   const deleteTodo = (text) =>{
@@ -43,7 +72,7 @@ function App() {
       (task) => task.taskName === text
     )
     newListTask.splice(taskIndex,1)
-    setListTasks(newListTask)
+    saveTodos(newListTask)
   }
 
   return (
