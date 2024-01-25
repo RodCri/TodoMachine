@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import DeleteI from '../assets/d.svg?react';
-import Ok from '../assets/complete.svg?react'
+import DeleteI from '../../assets/d.svg?react';
+import Ok from '../../assets/complete.svg?react'
 import './BtnIcon.css';
 
 const iconTypes = {

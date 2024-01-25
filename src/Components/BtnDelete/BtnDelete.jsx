@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { BtnIcon } from './BtnIcon';
+import { BtnIcon } from '../BtnIcon/BtnIcon';
 
 export const BtnDelete = ({onDelete}) => {
   return (

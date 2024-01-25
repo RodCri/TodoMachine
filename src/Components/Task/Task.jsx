@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import PropTypes from 'prop-types';
 import './Task.css'
-import { BtnComplete } from './BtnComplete';
-import { BtnDelete } from './BtnDelete';
+import { BtnComplete } from '../BtnComplete/BtnComplete';
+import { BtnDelete } from '../BtnDelete/BtnDelete';
 
 export const Task = ({name, completed, onComplete, onDelete}) => {
 

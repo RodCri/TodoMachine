@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import './App.css'
-import { Counter } from './Components/Counter'
-import { Filter } from './Components/Filter'
-import { Task } from './Components/Task'
-import { ListTasks } from './Components/ListTasks'
-import { NewItem } from './Components/NewItem'
-import { useLocalStorage } from './Components/useLocalStorage'
+import { Counter } from './Components/Counter/Counter'
+import { Filter } from './Components/Filter/Filter'
+import { Task } from './Components/Task/Task'
+import { ListTasks } from './Components/ListTasks/ListTasks'
+import { NewItem } from './Components/NewItem/NewItem'
+import { useLocalStorage } from './hooks/useLocalStorage'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
