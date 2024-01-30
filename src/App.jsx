@@ -6,10 +6,13 @@ import { Task } from './Components/Task/Task'
 import { ListTasks } from './Components/ListTasks/ListTasks'
 import { NewItem } from './Components/NewItem/NewItem'
 import { useLocalStorage } from './hooks/useLocalStorage'
+import { Error } from './Components/Error/Error'
+import { EmptyTask } from './Components/EmptyTask/EmptyTask'
+import { Loading } from './Components/Loading/Loading'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [listTasks, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const {item: listTasks, saveItem:saveTodos,loading,error} = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = useState("");
 
   const completedTodos = listTasks.filter(task => task.complete).length;
@@ -50,6 +53,9 @@ function App() {
       <Counter completed={completedTodos} total={totalTodos}/>
       <Filter searchValue={searchValue} setSearchValue={setSearchValue} />
       <ListTasks>
+        {loading && <Loading />}
+        {error && <Error />}
+        {(!loading && searchedTodos.length === 0) && <EmptyTask />}
         {
           searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete} onComplete={() => completeTodo(item.taskName)} onDelete={() => deleteTodo(item.taskName)}/>))
         }
