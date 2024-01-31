@@ -7,4 +7,5 @@ export default defineConfig({
   plugins: [react(),svgr({
     exportAsDefault: true
   })],
+  base: 'https://RodCri.github.io/TodoMachine/'
 })
