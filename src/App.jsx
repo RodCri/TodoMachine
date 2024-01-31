@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react'
 import './App.css'
 import { Counter } from './Components/Counter/Counter'
@@ -9,12 +10,13 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 import { Error } from './Components/Error/Error'
 import { EmptyTask } from './Components/EmptyTask/EmptyTask'
 import { Loading } from './Components/Loading/Loading'
+import { Modal } from './Components/Modal/Modal'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
   const {item: listTasks, saveItem:saveTodos,loading,error} = useLocalStorage('TODOS_V1', []);
   const [searchValue, setSearchValue] = useState("");
-
+  const [openModal, setOpenModal] = useState(false);
   const completedTodos = listTasks.filter(task => task.complete).length;
   const totalTodos = listTasks.length;
 
@@ -60,7 +62,10 @@ function App() {
           searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete} onComplete={() => completeTodo(item.taskName)} onDelete={() => deleteTodo(item.taskName)}/>))
         }
       </ListTasks>
-      <NewItem />
+      <NewItem openModal={openModal} setOpenModal={setOpenModal} />
+      {openModal &&(
+        <Modal>Modallllll</Modal>
+      )}
     </div>
   )
 }
