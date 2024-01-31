@@ -11,6 +11,7 @@ import { Error } from './Components/Error/Error'
 import { EmptyTask } from './Components/EmptyTask/EmptyTask'
 import { Loading } from './Components/Loading/Loading'
 import { Modal } from './Components/Modal/Modal'
+import { FormTodo } from './Components/FormTodo/FormTodo'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -50,6 +51,16 @@ function App() {
     saveTodos(newListTask)
   }
 
+  const addTodo = (taskNew) =>{
+    const newListTask = [...listTasks];
+    newListTask.push({
+      id: listTasks.length,
+      taskName: taskNew,
+      complete: false
+    });
+    saveTodos(newListTask);
+  }
+
   return (
     <div className='todo_machine'>      
       <Counter completed={completedTodos} total={totalTodos}/>
@@ -59,12 +70,19 @@ function App() {
         {error && <Error />}
         {(!loading && searchedTodos.length === 0) && <EmptyTask />}
         {
-          searchedTodos.map(item => (<Task key={item.id} name={item.taskName} completed={item.complete} onComplete={() => completeTodo(item.taskName)} onDelete={() => deleteTodo(item.taskName)}/>))
+          searchedTodos.map(item => 
+            (<Task key={item.id} 
+              name={item.taskName} 
+              completed={item.complete} 
+              onComplete={() => completeTodo(item.taskName)} 
+              onDelete={() => deleteTodo(item.taskName)}/>))
         }
       </ListTasks>
       <NewItem openModal={openModal} setOpenModal={setOpenModal} />
       {openModal &&(
-        <Modal>Modallllll</Modal>
+        <Modal>
+          <FormTodo setOpenModal={setOpenModal} addTodo={addTodo} />
+        </Modal>
       )}
     </div>
   )
